@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D Image Map with Three.js</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <!-- <link rel="stylesheet" href="./reset.css" /> -->
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="top_menu">
+      <div class="item"><a href="./">Home</a></div>
+      <div class="item social">
+        Social
+        <div>
+          <a class="item" href="" target="_blank"
+            ><img src="images/svg/social/fb.svg"
+          /></a>
+          <a class="item" href="" target="_blank"
+            ><img src="images/svg/social/in.svg"
+          /></a>
+          <a class="item" href="" target="_blank"
+            ><img src="images/svg/social/tw.svg"
+          /></a>
+          <a class="item" href="" target="_blank"
+            ><img src="images/svg/social/insta.svg"
+          /></a>
+          <a class="item" href="" target="_blank"
+            ><img src="images/svg/social/yt.svg"
+          /></a>
+        </div>
+      </div>
+      <a class="item" href="" target="_blank">PTIT CIE</a>
+      <div class="hover_bg"></div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+      const map = L.map("map", {
+        crs: L.CRS.Simple,
+        minZoom: 0,
+        maxZoom: 2,
+        zoomControl: false,
+        maxBoundsViscosity: 1.0,
+        attributionControl: false,
+      });
+
+      const imageUrl = "./images/MAP-360.png";
+      const imageBounds = [
+        [0, 0],
+        [2000, 1800],
+      ];
+
+      L.imageOverlay(imageUrl, imageBounds).addTo(map);
+
+      map.setView([250, 400], 0);
+
+      // Define custom icons
+      const customIcon1 = L.divIcon({
+        className: "hotspot", // Add a class to apply CSS styles
+        html:
+            <p class="hotspot__name">Coffee</p>
+            <img src="./images/icon.png" alt="" class="hotspot__start" />
+            <a href="./vtour3/tour.html">
+              <img
+                src="./images/cafe.png"
+                alt=""
+                class="hotspot__after"
+              />
+            </a>
+          ,
+        iconSize: [32, 32], // Size of the icon [width, height]
+        iconAnchor: [16, 32], // Anchor point of the icon (relative to the icon image) [x, y]
+        popupAnchor: [0, -32], // Anchor point of the popup relative to the icon [x, y]
+      });
+
+      const customIcon2 = L.divIcon({
+        className: "hotspot", // Add a class to apply CSS styles
+        html:
+            <p class="hotspot__name">Royal Homestay</p>
+            <img src="./images/icon.png" alt="" class="hotspot__start" />
+            <a href="./vtour1/tour.html">
+              <img
+                src="./images/royalhomestay.png"
+                alt=""
+                class="hotspot__after"
+              />
+            </a>
+          ,
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32],
+      });
+
+      const customIcon3 = L.divIcon({
+        className: "hotspot", // Add a class to apply CSS styles
+        html:
+            <p class="hotspot__name">Phim Trường King Kong</p>
+            <img src="./images/icon.png" alt="" class="hotspot__start" />
+            <a href="./vtour2/tour.html">
+              <img
+                src="./images/daodaulau.png"
+                alt=""
+                class="hotspot__after"
+              />
+            </a>
+          ,
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32],
+      });
+
+      const customIcon4 = L.divIcon({
+        className: "hotspot", // Add a class to apply CSS styles
+        html:
+            <p class="hotspot__name">Tuyệt Tịnh Cốc</p>
+            <img src="./images/icon.png" alt="" class="hotspot__start" />
+            <a href="./vtour4/tour.html">
+              <img
+                src="./images/tuyetinhcoc.png"
+                alt=""
+                class="hotspot__after"
+              />
+            </a>
+          ,
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32],
+      });
+
+      L.marker([730, 440], { icon: customIcon1 }).addTo(map).openPopup();
+      L.marker([820, 1130], { icon: customIcon2 }).addTo(map).openPopup();
+      L.marker([1120, 810], { icon: customIcon3 }).addTo(map).openPopup();
+      L.marker([1520, 1020], { icon: customIcon4 }).addTo(map).openPopup();
+
+      // Ensure that the map’s bounds and initial view are correct
+      const fitMapToBounds = () => {
+        const bounds = L.latLngBounds(imageBounds);
+        map.setMaxBounds(bounds);
+        map.fitBounds(bounds);
+      };
+
+      // Call the function to fit the map to the bounds on load
+      fitMapToBounds();
+    </script>
+  </body>
+</html>

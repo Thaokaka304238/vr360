@@ -1,0 +1,334 @@
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+/* Define hover effects for markers */
+
+.hotspot {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.hotspot a {
+    width: 100px;
+    z-index: 1;
+}
+
+
+.hotspot__start,
+.hotspot__after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hotspot__start {
+    width: 40px;
+    height: 40px;
+}
+
+.hotspot__after {
+    width: 100px;
+    height: 100px;
+    z-index: 100;
+    transform-origin: center;
+    transform: translate(-50%, -50%) scale(0.1);
+    transition: opacity 0.5s, transform 0.5s !important;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hotspot:hover:not(.active) .hotspot__after {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.hotspot__name {
+    position: absolute;
+    top: -45px;
+    color: #fff;
+    width: max-content;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    transform: translate(0, -20%) scale(1);
+    transition: transform 0.5s !important;
+    user-select: none;
+}
+
+.hotspot:hover:not(.active) .hotspot__name {
+    transform: translate(0, -150%) scale(1.5);
+}
+
+/* **************** Top Menu ******************** */
+#top_menu {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0;
+    height: 148px;
+    pointer-events: all;
+    white-space: nowrap;
+    text-align: right;
+    padding-right: 26px;
+    transition: opacity 0.5s;
+}
+
+#top_menu.hidden,
+main.ui_hidden #top_menu,
+main.autotour #top_menu,
+main.thematic #top_menu {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#top_menu .hover_bg {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    background-image: url(../images/svg/menu_top_gradient.svg);
+    background-position: left top;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    transition: opacity 0.3s;
+}
+
+#top_menu:hover .hover_bg {
+    opacity: 1;
+}
+
+#top_menu>.item {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    z-index: 10;
+    /* font-family: NimbusRegular; font-size: 14px; font-weight: bold; text-align: center; */
+    font-family: arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    margin: 32px 26px;
+    transition: color 0.3s;
+    text-decoration: none;
+}
+
+#top_menu>.item a {
+    font-family: arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    transition: color 0.3s;
+    text-decoration: none;
+}
+
+#top_menu>.item:before {
+    content: '\2022';
+    position: absolute;
+    pointer-events: none;
+    width: 52px;
+    font-size: 26px;
+    color: rgba(255, 205, 0, 0.5);
+    line-height: 26px;
+    left: -52px;
+    top: -3px;
+    transition: color 0.3s;
+}
+
+#top_menu>.item:first-child:before {
+    content: none;
+}
+
+#top_menu>.item:focus,
+#top_menu>.item:hover,
+#top_menu>.item.active {
+    color: rgba(255, 255, 255, 1);
+    text-decoration: underline;
+}
+
+#top_menu:hover .item:before {
+    color: rgba(255, 205, 0, 1);
+}
+
+#top_menu>.item.social div {
+    position: absolute;
+    opacity: 0;
+    display: flex;
+    flex-direction: row;
+    left: 50%;
+    top: 100%;
+    width: auto;
+    height: auto;
+    max-height: 60px;
+    background-color: rgba(255, 205, 0, 0);
+    border-radius: 4px;
+    overflow: hidden;
+    padding-top: 10px;
+    transition: opacity 0.3s, max-height 0.3s, transform 0.3s;
+    transform-origin: 50% top;
+    transform: translateX(-202px) scale(0);
+    border: 0px solid transparent;
+    border-width: 6px 40px 40px 40px;
+    padding: 2px;
+}
+
+#top_menu>.item.social:hover div {
+    opacity: 1;
+    /* max-height: 60px; */
+    transform: translateX(-202px) scale(1);
+}
+
+#top_menu>.item.social div .item:first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+#top_menu>.item.social div .item:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
+#top_menu>.item.social div .item {
+    display: block;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    background-color: rgba(255, 205, 0, 1);
+    transition: background-color 0.3s;
+    margin-bottom: 1px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+
+}
+
+#top_menu>.item.social div .item img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    pointer-events: none;
+    transform-origin: center;
+    transform: translate(-50%, -50%) scale(1.0);
+    transition: transform 0.3s;
+}
+
+#top_menu>.item.social div .item:hover {
+    height: 60px;
+    background-color: rgba(255, 215, 51, 1);
+}
+
+#top_menu>.item.social div .item:hover img {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+@media (max-width: 600px) {
+    #top_menu {
+        display: none !important;
+    }
+}
+
+/* Popup */
+
+.popup__heading {
+    margin-top: 8px;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: left;
+    color: #18202A;
+}
+
+.popup__desc {
+    margin-top: 4px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: justify;
+    color: #18202A;
+}
+
+.popup__desc span {
+    font-weight: 700;
+}
+
+.popup__btn {
+    margin-top: 8px;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    top: 4px;
+    right: 10px;
+}
+
+
+.show-modal img {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    z-index: 3;
+    bottom: 45px;
+    right: 50px;
+    border-radius: 50%;
+}
+
+.form--popup {
+    z-index: 999;
+    position: fixed;
+    /* height: 100%; */
+    /* width: 100%; */
+    background: #e3f2fd;
+}
+
+img.show-modal,
+#popupbox {
+    position: fixed;
+    /* left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); */
+    right: 45px;
+    bottom: 165px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form--popup.active .show-modal {
+    display: none;
+}
+
+
+.form--popup.active .overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#popupbox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 316px;
+    width: 100%;
+    padding: 24px;
+    border-radius: 8px;
+    background-color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s ease;
+    background: rgba(255, 205, 0, 1);
+    /* transform: translate(-50%, -50%) scale(1.2); */
+}
+
+.form--popup.active #popupbox {
+    opacity: 1;
+    pointer-events: auto;
+    /* transform: translate(17%, -41%) scale(1); */
+}
